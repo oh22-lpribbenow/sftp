@@ -17,16 +17,19 @@ Added support for mounting Azure Blob Storage Containers.
 [How to mount Blob storage as a file system with blobfuse](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-how-to-mount-container-linux)
 
 ### Requirements
+
 #### Fuse Device
 
 In order to use Blobfuse, you need to pass the fuse device `/dev/fuse` to the container.
 
 *docker run*
+
 ```text
 --device=/dev/fuse:/dev/fuse
 ```
 
 *docker-compose*
+
 ```text
 devices:
   - "/dev/fuse:/dev/fuse"
@@ -37,19 +40,21 @@ devices:
 For `mount` to work, you need to run the container with the SYS_ADMIN capability turned on.
 
 *docker run*
+
 ```text
 --cap-add SYS_ADMIN 
 ```
 
 *docker-compose*
+
 ```text
 cap_add:
   - "SYS_ADMIN"
 ```
 
 #### Environment variables
-The following environment variables need to be set.
 
+The following environment variables need to be set.
 
 | Name                            | Description                         |
 |---------------------------------|-------------------------------------|
@@ -60,11 +65,12 @@ The following environment variables need to be set.
 | AZURE_MOUNT_POINT               | Blobfuse mount point                |
 | SFTP_USERS                      | Username and Password               |
 
-Notes: 
- - You can either provide `AZURE_STORAGE_ACCESS_KEY` or `AZURE_STORAGE_SAS_TOKEN`. Providing both will result in an error.
- - The syntax for `SFTP_USERS` is `username:password`
- - The mount point `AZURE_MOUNT_POINT` should be set to a directory inside the user's home directory. 
-   - Example: If you create a user called `foo` you should set `AZURE_MOUNT_POINT` to `/home/foo/<directory name>`.
+Notes:
+
+- You can either provide `AZURE_STORAGE_ACCESS_KEY` or `AZURE_STORAGE_SAS_TOKEN`. Providing both will result in an error.
+- The syntax for `SFTP_USERS` is `username:password`
+- The mount point `AZURE_MOUNT_POINT` should be set to a directory inside the user's home directory.
+  - Example: If you create a user called `foo` you should set `AZURE_MOUNT_POINT` to `/home/foo/<directory name>`.
   
 ### Example - docker run
 
