@@ -19,7 +19,7 @@ Added support for mounting Azure Blob Storage Containers.
 ### Requirements
 #### Fuse Device
 
-In order to use the fuse driver, you need to pass the fuse device `/dev/fuse` to the container.
+In order to use Blobfuse, you need to pass the fuse device `/dev/fuse` to the container.
 ```text
 --device=/dev/fuse:/dev/fuse
 ```
