@@ -4,7 +4,7 @@
 
 Easy to use SFTP ([SSH File Transfer Protocol](https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol)) server with [OpenSSH](https://en.wikipedia.org/wiki/OpenSSH).
 
-Added support for mounting Azure Blob Storage Containers
+Added support for mounting Azure Blob Storage Containers.
 
 ### Forked repository
 
