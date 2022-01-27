@@ -48,7 +48,7 @@ cap_add:
 ```
 
 #### Environment variables
-The follwoing environment variables need to defined.
+The following environment variables need to be set.
 
 
 | Name                            | Description                         |
