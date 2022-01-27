@@ -46,7 +46,7 @@ Notes:
  The syntax for `SFTP_USERS` is `username:password`
  The mount point `AZURE_MOUNT_POINT` should be set to a directory inside the user's home directory. See below for examples.
   
-### "docker run" example
+### Example - docker run
 
 PowerShell
 
@@ -78,7 +78,7 @@ docker run \
     -d "oh22/sftp-blobfuse:latest"
 ```
 
-### "docker-compose" example
+### Example - docker-compose
 
 ```text
 version: "3.8"
