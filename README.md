@@ -20,16 +20,31 @@ Added support for mounting Azure Blob Storage Containers.
 #### Fuse Device
 
 In order to use Blobfuse, you need to pass the fuse device `/dev/fuse` to the container.
+
+docker run
 ```text
 --device=/dev/fuse:/dev/fuse
+```
+
+docker-compose
+```text
+devices:
+  - "/dev/fuse:/dev/fuse"
 ```
 
 #### SYS_ADMIN capability
 
 For `mount` to work, you need to run the container with the SYS_ADMIN capability turned on.
 
+docker run
 ```text
 --cap-add SYS_ADMIN 
+```
+
+docker-compose
+```text
+cap_add:
+  - "SYS_ADMIN"
 ```
 
 #### Environment variables
