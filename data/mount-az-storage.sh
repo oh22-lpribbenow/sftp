@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -Eeo pipefail
 
 # Create Mount Point
 mkdir -p ${AZURE_MOUNT_POINT}
