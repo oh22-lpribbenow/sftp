@@ -3,23 +3,24 @@ FROM ubuntu:20.04
 LABEL maintainer="Lucas Pribbenow"
 LABEL company="oh22information services GmbH"
 LABEL version="1.0"
-LABEL description="SFTP Server with Azure Blob Storage mount support"
+LABEL description="SFTP Server with Blobfuse support"
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        wget \
-        apt-utils && \
-    wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb && \
+      wget \
+      apt-utils \
+      ca-certificates && \
+    wget --progress=dot:giga https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     apt-get remove -y \
-        wget && \
+      wget && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        fuse \
-        blobfuse \
-        libcurl3-gnutls \
-        libgnutls30 \
-        openssh-server && \
+      fuse \
+      blobfuse \
+      libcurl3-gnutls \
+      libgnutls30 \
+      openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/run/sshd && \
     rm -f /etc/ssh/ssh_host_*key*
@@ -27,6 +28,6 @@ RUN apt-get update && \
 COPY data/sshd_config /etc/ssh/sshd_config
 COPY data/create-sftp-user /usr/local/bin/
 COPY data/entrypoint /
-COPY data/mount-az-storage /etc/sftp.d/
+COPY data/mount-az-storage.sh /etc/sftp.d/
 
 ENTRYPOINT ["/entrypoint"]
