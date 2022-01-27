@@ -5,12 +5,14 @@ services:
     image: oh22/sftp-blobfuse:latest
     restart: always
     container_name: sftp-blobfuse
+    security_opt:
+      - apparmor:unconfined
     cap_add:
       - "SYS_ADMIN"
     devices:
       - "/dev/fuse:/dev/fuse"
     ports:
-      - "2222:22"
+      - "2222:22/tcp"
     environment:
       - AZURE_STORAGE_ACCOUNT="<Storage Account Name>"
       - AZURE_STORAGE_ACCESS_KEY="<Storage Account Access Key>"
