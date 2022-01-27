@@ -81,14 +81,23 @@ docker run \
 ### "docker-compose" example
 
 ```text
-docker run \
-    --cap-add SYS_ADMIN \
-    --device=/dev/fuse:/dev/fuse \
-    -p 8022:22 \
-    -e AZURE_STORAGE_ACCOUNT="<Storage Account Name>" \
-    -e AZURE_STORAGE_ACCESS_KEY="<Storage Account Access Key>" \
-    -e AZURE_STORAGE_ACCOUNT_CONTAINER="<Storage Account Container>" \
-    -e AZURE_MOUNT_POINT="/home/foo/mount" \
-    -e SFTP_USERS="foo:password" \
-    -d "oh22/sftp-blobfuse:latest"
+version: "3.8"
+
+services:
+  sftp-blobfuse:
+    image: oh22/sftp-blobfuse:latest
+    restart: always
+    container_name: sftp-blobfuse
+    cap_add:
+      - "SYS_ADMIN"
+    devices:
+      - "/dev/fuse:/dev/fuse"
+    ports:
+      - "2222:22"
+    environment:
+      - AZURE_STORAGE_ACCOUNT="<Storage Account Name>"
+      - AZURE_STORAGE_ACCESS_KEY="<Storage Account Access Key>"
+      - AZURE_STORAGE_ACCOUNT_CONTAINER="<Storage Account Container>"
+      - AZURE_MOUNT_POINT="/home/foo/mount"
+      - SFTP_USERS="foo:password"
 ```
