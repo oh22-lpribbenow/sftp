@@ -25,9 +25,9 @@ RUN apt-get update && \
     mkdir -p /var/run/sshd && \
     rm -f /etc/ssh/ssh_host_*key*
 
-COPY data/sshd_config /etc/ssh/sshd_config
-COPY data/create-sftp-user /usr/local/bin/
-COPY data/entrypoint /
-COPY data/mount-az-storage.sh /etc/sftp.d/
+COPY ./data/sshd_config /etc/ssh/sshd_config
+COPY ./data/create-sftp-user /usr/local/bin/
+COPY ./data/entrypoint /
+COPY ./data/mount-az-storage.sh /etc/sftp.d/
 
 ENTRYPOINT ["/entrypoint"]
