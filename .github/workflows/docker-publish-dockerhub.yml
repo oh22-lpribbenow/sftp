@@ -33,3 +33,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: latest
+          
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: oh22-lpribbenow/sftp-blobfuse
