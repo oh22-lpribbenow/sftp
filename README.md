@@ -12,6 +12,10 @@ Added support for mounting Azure Blob Storage Containers.
 
 [Parent Image - Ubuntu 20.04](https://hub.docker.com/_/ubuntu)
 
+[Github - Blobfuse](https://github.com/Azure/azure-storage-fuse)
+
+[How to mount Blob storage as a file system with blobfuse](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-how-to-mount-container-linux)
+
 ### Requirements
 #### Fuse Device
 
