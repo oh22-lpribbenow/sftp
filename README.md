@@ -42,9 +42,9 @@ The follwoing environment variables need to defined.
 | SFTP_USERS                      | Username and Password               |
 
 Notes: 
- You can either provide `AZURE_STORAGE_ACCESS_KEY` or `AZURE_STORAGE_SAS_TOKEN`. Providing both will result in an error.
- The syntax for `SFTP_USERS` is `username:password`
- The mount point `AZURE_MOUNT_POINT` should be set to a directory inside the user's home directory. See below for examples.
+ - You can either provide `AZURE_STORAGE_ACCESS_KEY` or `AZURE_STORAGE_SAS_TOKEN`. Providing both will result in an error.
+ - The syntax for `SFTP_USERS` is `username:password`
+ - The mount point `AZURE_MOUNT_POINT` should be set to a directory inside the user's home directory. See below for examples.
   
 ### Example - docker run
 
