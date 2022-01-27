@@ -6,10 +6,89 @@ Easy to use SFTP ([SSH File Transfer Protocol](https://en.wikipedia.org/wiki/SSH
 
 Added support for mounting Azure Blob Storage Containers.
 
-### Forked repository
+### References
 
-[atmoz/sftp](https://github.com/atmoz/sftp)
+[Forked Repository - atmoz/sftp](https://github.com/atmoz/sftp)
 
-### Used base image
+[Parent Image - Ubuntu 20.04](https://hub.docker.com/_/ubuntu)
 
-[Ubuntu 20.04](https://hub.docker.com/_/ubuntu)
+### Requirements
+#### Fuse Device
+
+In order to use the fuse driver, you need to pass the fuse device `/dev/fuse` to the container.
+```text
+--device=/dev/fuse:/dev/fuse
+```
+
+#### SYS_ADMIN capability
+
+For `mount` to work, you need to run the container with the SYS_ADMIN capability turned on.
+
+```text
+--cap-add SYS_ADMIN 
+```
+
+#### Environment variables
+The follwoing environment variables need to defined.
+
+
+| Name                            | Description                         |
+|---------------------------------|-------------------------------------|
+| AZURE_STORAGE_ACCOUNT           | Name of the azure storage account   |
+| AZURE_STORAGE_ACCESS_KEY        | Access key of the storage account   |
+| AZURE_STORAGE_SAS_TOKEN         | SAS token of the storage account    |
+| AZURE_STORAGE_ACCOUNT_CONTAINER | Name of the blob storage container  |
+| AZURE_MOUNT_POINT               | Blobfuse mount point                |
+| SFTP_USERS                      | Username and Password               |
+
+Notes: 
+ You can either provide `AZURE_STORAGE_ACCESS_KEY` or `AZURE_STORAGE_SAS_TOKEN`. Providing both will result in an error.
+ The syntax for `SFTP_USERS` is `username:password`
+ The mount point `AZURE_MOUNT_POINT` should be set to a directory inside the user's home directory. See below for examples.
+  
+### "docker run" example
+
+PowerShell
+
+```powershell
+docker run `
+    --cap-add SYS_ADMIN `
+    --device=/dev/fuse:/dev/fuse `
+    -p 2222:22 `
+    -e AZURE_STORAGE_ACCOUNT="<Storage Account Name>" `
+    -e AZURE_STORAGE_ACCESS_KEY="<Storage Account Access Key>" `
+    -e AZURE_STORAGE_ACCOUNT_CONTAINER="<Storage Account Container>" `
+    -e AZURE_MOUNT_POINT="/home/foo/mount" `
+    -e SFTP_USERS="foo:password" `
+    -d "oh22/sftp-blobfuse:latest"
+```
+
+Bash
+
+```bash
+docker run \
+    --cap-add SYS_ADMIN \
+    --device=/dev/fuse:/dev/fuse \
+    -p 2222:22 \
+    -e AZURE_STORAGE_ACCOUNT="<Storage Account Name>" \
+    -e AZURE_STORAGE_ACCESS_KEY="<Storage Account Access Key>" \
+    -e AZURE_STORAGE_ACCOUNT_CONTAINER="<Storage Account Container>" \
+    -e AZURE_MOUNT_POINT="/home/foo/mount" \
+    -e SFTP_USERS="foo:password" \
+    -d "oh22/sftp-blobfuse:latest"
+```
+
+### "docker-compose" example
+
+```text
+docker run \
+    --cap-add SYS_ADMIN \
+    --device=/dev/fuse:/dev/fuse \
+    -p 8022:22 \
+    -e AZURE_STORAGE_ACCOUNT="<Storage Account Name>" \
+    -e AZURE_STORAGE_ACCESS_KEY="<Storage Account Access Key>" \
+    -e AZURE_STORAGE_ACCOUNT_CONTAINER="<Storage Account Container>" \
+    -e AZURE_MOUNT_POINT="/home/foo/mount" \
+    -e SFTP_USERS="foo:password" \
+    -d "oh22/sftp-blobfuse:latest"
+```
